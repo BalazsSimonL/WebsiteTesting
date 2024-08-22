@@ -11,6 +11,7 @@ public class WebsiteUI {
     public LoginPage loginPage;
     public RegisterPage registerPage;
     public ContactDetailsPage contactDetailsPage;
+    public AddContactPage addContactPage;
 
     public WebsiteUI(WebDriver driver) {
         this.driver = driver;
@@ -20,6 +21,7 @@ public class WebsiteUI {
         this.loginPage = new LoginPage(driver);
         this.registerPage = new RegisterPage(driver);
         this.contactDetailsPage = new ContactDetailsPage(driver);
+        this.addContactPage = new AddContactPage(driver);
 
     }
 }

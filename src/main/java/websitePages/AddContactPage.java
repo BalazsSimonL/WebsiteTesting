@@ -6,13 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import websiteBase.WebsiteHelper;
-
 import java.time.Duration;
 
 public class AddContactPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    public HomePage homePage;
 
     public AddContactPage(WebDriver driver) {
         this.driver = driver;
@@ -105,6 +105,12 @@ public class AddContactPage {
      **/
     @FindBy(xpath = "//button[@id='logout']")
     public WebElement addContactLogoutButton;
+
+    /**
+     * Error message
+     **/
+    @FindBy(xpath = "//*[@id=\"error\"]")
+    public WebElement addContactErrorMessage;
 
 
     //endregion
@@ -223,6 +229,52 @@ public class AddContactPage {
         addContactLogoutButton.click();
     }
 
+
+    //endregion
+
+    //other region elements functions
+
+    /**
+     * Fill Customer Information
+     *
+     * @param firstName       String firstName
+     * @param lastName        String lastName
+     * @param email           String email
+     * @param date String date
+     * @param phoneNumber     String phoneNumber
+     * @param streetAddress1  String streetAddress1
+     * @param streetAddress2  String streetAddress2
+     * @param city            String city
+     * @param stateOfProvince String stateOfProvince
+     * @param postalCode      String postalCode
+     * @param country         String country
+     **/
+
+    public void fillAddCustomerInformation(String firstName, String lastName, String email,String date, String phoneNumber, String streetAddress1, String streetAddress2, String city, String stateOfProvince, String postalCode, String country) {
+        WebsiteHelper.waitUntilWebElementIsClickable(addContactLogoutButton, wait, driver);
+        fillFirstNameField(firstName);
+        fillLastNameField(lastName);
+        fillEmailField(email);
+        fillDateOfBirthField(date);
+        fillPhoneNumberField(phoneNumber);
+        fillStreetAddress1Field(streetAddress1);
+        fillStreetAddress2Field(streetAddress2);
+        fillCityField(city);
+        fillStateOfProvinceField(stateOfProvince);
+        fillPostalCodeField(postalCode);
+        fillCountryField(country);
+        clickOnSubmitButton();
+    }
+    public void stopAddCustomerInformation(){
+        homePage.addContactButton.click();
+        WebsiteHelper.waitUntilWebElementIsClickable(addContactCancelButton, wait, driver);
+        clickOnCancelButton();
+    }
+    public void logoutFromAddCustomerInformation(){
+        homePage.addContactButton.click();
+        WebsiteHelper.waitUntilWebElementIsClickable(addContactLogoutButton, wait, driver);
+        clickOnLogoutButton();
+    }
 
     //endregion
 }
