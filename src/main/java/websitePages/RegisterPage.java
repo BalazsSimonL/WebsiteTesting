@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import websiteBase.UserDTO;
 import websiteBase.WebsiteHelper;
 
 import java.time.Duration;
@@ -130,18 +131,17 @@ public class RegisterPage {
 
     /**
      * Fill User Information
-     *
-     * @param firstName String firstName
-     * @param lastName  String lastName
-     * @param email     String email
-     * @param password  String password
+     * //@param firstName String firstName
+     * //@param lastName  String lastName
+     * //@param email     String email
+     * //@param password  String password
      **/
 
-    public void createANewAccount(String firstName, String lastName, String email, String password) {
-        fillFirstNameField(firstName);
-        fillLastNameField(lastName);
-        fillEmailField(email);
-        fillPasswordField(password);
+    public void createANewAccount(UserDTO user) {
+        fillFirstNameField(user.getFirstName());
+        fillLastNameField(user.getLastName());
+        fillEmailField(user.getEmail());
+        fillPasswordField(user.getPassword());
         clickOnSubmitButton();
     }
 

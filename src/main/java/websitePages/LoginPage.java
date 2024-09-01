@@ -1,12 +1,11 @@
 package websitePages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import websiteBase.TestData;
+import websiteBase.UserDTO;
 import websiteBase.WebsiteHelper;
 
 import java.time.Duration;
@@ -15,7 +14,7 @@ public class LoginPage {
 
     private WebDriver driver;
     private WebDriverWait wait;
-    public TestData testData;
+    public UserDTO testData;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -105,12 +104,12 @@ public class LoginPage {
     /**
      * Login in to the Website
      *
-     * @param email    String email
-     * @param password String password
+     * //@param email    String email
+     * //@param password String password
      */
-    public void loginWebsite(String email, String password) {
-        fillEmailInput(email);
-        fillPasswordInput(password);
+    public void loginWebsite(UserDTO user) {
+        fillEmailInput(user.getEmail());
+        fillPasswordInput(user.getPassword());
         clickToLoginButton();
     }
 //endregion

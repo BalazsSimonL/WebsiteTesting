@@ -1,7 +1,5 @@
 package websitePages;
 
-import dev.failsafe.internal.util.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -84,7 +82,7 @@ public class HomePage {
      * Table
      **/
     @FindBy(xpath = "//*[@id=\"myTable\"]")
-    public WebElement tableBodyRowTable;
+    public WebElement customerdatatablerow;
 
     /**
      *
@@ -107,7 +105,7 @@ public class HomePage {
     }
     /** Table Contact is visible **/
     public void tableContactsAreVisible(){
-        WebsiteHelper.waitUntilWebElementIsVisible(tableBodyRowTable, wait, driver);
+        WebsiteHelper.waitUntilWebElementIsVisible(customerdatatablerow, wait, driver);
     }
     //endregion
 

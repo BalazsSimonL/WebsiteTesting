@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import websiteBase.TestData;
+import websiteBase.UserDTO;
 import websiteBase.WebsiteHelper;
 import websiteBase.WebsiteUI;
 
@@ -22,7 +23,7 @@ public class RegisterTest {
     public WebDriver driver;
     public WebsiteUI ui;
     public WebDriverWait wait;
-    public TestData testData;
+    public UserDTO testData;
     Faker faker = new Faker();
 
     @BeforeMethod
@@ -43,26 +44,18 @@ public class RegisterTest {
         ui.loginPage.openWebsite();
         ui.loginPage.clickToSignUpButton();
 
-        // Generate fake data
-        String email = faker.internet().emailAddress();
-        String password = faker.internet().password();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
+        UserDTO user = new UserDTO(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), faker.internet().password());
 
-        // Store data in TestData
-        TestData.email = email;
-        TestData.password = password;
-        TestData.firstName = firstName;
-        TestData.lastName = lastName;
 
-        ui.registerPage.createANewAccount(firstName, lastName, email, password);
+        ui.registerPage.createANewAccount(user);
         Assert.assertTrue(ui.homePage.logoutButton.isDisplayed());
         WebsiteHelper.waitUntilWebElementIsVisible(ui.homePage.addContactButton, wait, driver);
         ui.homePage.clickToLogoutButton();
         WebsiteHelper.waitUntilWebElementIsVisible(ui.loginPage.linkToAPIDocumentation, wait, driver);
-        ui.loginPage.loginWebsite(email, password);
+        ui.loginPage.loginWebsite(user);
         WebsiteHelper.waitUntilWebElementIsClickable(ui.homePage.logoutButton, wait,driver);
         Assert.assertTrue(ui.homePage.addContactButton.isDisplayed());
+        TestData.setUser(user);
     }
 
     @AfterMethod

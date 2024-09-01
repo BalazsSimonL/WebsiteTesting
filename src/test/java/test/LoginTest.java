@@ -10,6 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import websiteBase.TestData;
+import websiteBase.UserDTO;
 import websiteBase.WebsiteHelper;
 import websiteBase.WebsiteUI;
 
@@ -20,7 +21,7 @@ public class LoginTest {
     public WebDriver driver;
     public WebsiteUI ui;
     public WebDriverWait wait;
-    public TestData testData;
+    public UserDTO testData;
 
     @BeforeMethod
     public void before() {
@@ -32,15 +33,14 @@ public class LoginTest {
         this.driver = new ChromeDriver(options);
         this.ui = new WebsiteUI(this.driver);
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
-
-
     }
 
     @Test
     public void loginWebsite() {
+        UserDTO user = TestData.getUser();
         ui.loginPage.openWebsite();
-        ui.loginPage.loginWebsite("test.21@gmail.com", "test1234");
-        WebsiteHelper.waitUntilWebElementIsVisible(ui.homePage.tableBodyRowTable, wait, driver);
+        ui.loginPage.loginWebsite(user);
+        WebsiteHelper.waitUntilWebElementIsVisible(ui.homePage.customerdatatablerow, wait, driver);
         Assert.assertTrue(ui.homePage.logoutButton.isDisplayed());
         ui.homePage.clickToLogoutButton();
         WebsiteHelper.waitUntilWebElementIsVisible(ui.loginPage.loginButton, wait, driver);

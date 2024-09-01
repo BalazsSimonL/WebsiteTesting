@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,9 +14,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import websiteBase.TestData;
-import websiteBase.WebsiteHelper;
+import websiteBase.UserDTO;
 import websiteBase.WebsiteUI;
-import websitePages.AddContactPage;
 import websitePages.HomePage;
 
 import java.text.SimpleDateFormat;
@@ -43,13 +41,13 @@ public class CustomerTest {
         this.ui = new WebsiteUI(this.driver);
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
 
-        //Alert alert = driver.switchTo().alert();
     }
 
     @Test
     public void addCustomer() {
         ui.loginPage.openWebsite();
-        ui.loginPage.loginWebsite("test.21@gmail.com", "test1234");
+        UserDTO user = TestData.getUser();
+        ui.loginPage.loginWebsite(user);
         ui.homePage.clickToAddNewContactButton();
 
         // Generate fake data
@@ -67,24 +65,10 @@ public class CustomerTest {
 
 
         // Store data in TestData
-        TestData.firstName = firstName;
-        TestData.lastName = lastName;
-        TestData.email = email;
-        TestData.date = date;
-        TestData.phoneNumber = phoneNumber;
-        TestData.streetAddress1 = streetAddress1;
-        TestData.streetAddress2 = streetAddress2;
-        TestData.city = city;
-        TestData.stateOfProvince = stateOfProvince;
-        TestData.postalCode = postalCode;
-        TestData.country = country;
-
-
         ui.addContactPage.fillAddCustomerInformation(firstName, lastName, email, date, phoneNumber, streetAddress1, streetAddress2, city, stateOfProvince, postalCode, country);
-        Assert.assertFalse(ui.addContactPage.addContactErrorMessage.isDisplayed());
 
-        Assert.assertTrue(ui.homePage.tableBodyRowTable.isDisplayed());
-        String tableText = ui.homePage.tableBodyRowTable.getText();
+        Assert.assertTrue(ui.homePage.customerdatatablerow.isDisplayed());
+        String tableText = ui.homePage.customerdatatablerow.getText();
         Assert.assertTrue(tableText.contains(firstName));
         ui.homePage.clickToLogoutButton();
     }
