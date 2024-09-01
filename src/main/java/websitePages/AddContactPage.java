@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import websiteBase.CustomerDTO;
 import websiteBase.WebsiteHelper;
 import java.time.Duration;
 
@@ -236,33 +237,32 @@ public class AddContactPage {
 
     /**
      * Fill Customer Information
-     *
-     * @param firstName       String firstName
-     * @param lastName        String lastName
-     * @param email           String email
-     * @param date String date
-     * @param phoneNumber     String phoneNumber
-     * @param streetAddress1  String streetAddress1
-     * @param streetAddress2  String streetAddress2
-     * @param city            String city
-     * @param stateOfProvince String stateOfProvince
-     * @param postalCode      String postalCode
-     * @param country         String country
+     * //@param firstName       String firstName
+     * //@param lastName        String lastName
+     * //@param email           String email
+     * //@param date String date
+     * //@param phoneNumber     String phoneNumber
+     * //@param streetAddress1  String streetAddress1
+     * //@param streetAddress2  String streetAddress2
+     * //@param city            String city
+     * //@param stateOfProvince String stateOfProvince
+     * //@param postalCode      String postalCode
+     * //@param country         String country
      **/
 
-    public void fillAddCustomerInformation(String firstName, String lastName, String email,String date, String phoneNumber, String streetAddress1, String streetAddress2, String city, String stateOfProvince, String postalCode, String country) {
+    public void fillAddCustomerInformation(CustomerDTO customer) {
         WebsiteHelper.waitUntilWebElementIsClickable(addContactLogoutButton, wait, driver);
-        fillFirstNameField(firstName);
-        fillLastNameField(lastName);
-        fillEmailField(email);
-        fillDateOfBirthField(date);
-        fillPhoneNumberField(phoneNumber);
-        fillStreetAddress1Field(streetAddress1);
-        fillStreetAddress2Field(streetAddress2);
-        fillCityField(city);
-        fillStateOfProvinceField(stateOfProvince);
-        fillPostalCodeField(postalCode);
-        fillCountryField(country);
+        fillFirstNameField(customer.getFirstName());
+        fillLastNameField(customer.getLastName());
+        fillEmailField(customer.getEmail());
+        fillDateOfBirthField(customer.getDate());
+        fillPhoneNumberField(customer.getPhoneNumber());
+        fillStreetAddress1Field(customer.getStreetAddress1());
+        fillStreetAddress2Field(customer.getStreetAddress2());
+        fillCityField(customer.getCity());
+        fillStateOfProvinceField(customer.getStateOfProvince());
+        fillPostalCodeField(customer.getPostalCode());
+        fillCountryField(customer.getCountry());
         clickOnSubmitButton();
     }
     public void stopAddCustomerInformation(){

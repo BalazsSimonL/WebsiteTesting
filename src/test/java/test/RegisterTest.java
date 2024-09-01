@@ -46,14 +46,13 @@ public class RegisterTest {
 
         UserDTO user = new UserDTO(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), faker.internet().password());
 
-
         ui.registerPage.createANewAccount(user);
         Assert.assertTrue(ui.homePage.logoutButton.isDisplayed());
         WebsiteHelper.waitUntilWebElementIsVisible(ui.homePage.addContactButton, wait, driver);
         ui.homePage.clickToLogoutButton();
         WebsiteHelper.waitUntilWebElementIsVisible(ui.loginPage.linkToAPIDocumentation, wait, driver);
         ui.loginPage.loginWebsite(user);
-        WebsiteHelper.waitUntilWebElementIsClickable(ui.homePage.logoutButton, wait,driver);
+        WebsiteHelper.waitUntilWebElementIsClickable(ui.homePage.logoutButton, wait, driver);
         Assert.assertTrue(ui.homePage.addContactButton.isDisplayed());
         TestData.setUser(user);
     }

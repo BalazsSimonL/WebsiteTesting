@@ -11,12 +11,13 @@ public class UserDTO {
     public UserDTO(String firstName,
                    String lastName,
                    String email,
-                   String password){
+                   String password) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
     public String getEmail() {
         return email;
     }
@@ -24,6 +25,7 @@ public class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getPassword() {
         return password;
     }

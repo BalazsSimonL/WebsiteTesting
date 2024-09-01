@@ -13,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import websiteBase.CustomerDTO;
 import websiteBase.TestData;
 import websiteBase.UserDTO;
 import websiteBase.WebsiteUI;
@@ -40,6 +41,9 @@ public class CustomerTest {
         this.driver = new ChromeDriver(options);
         this.ui = new WebsiteUI(this.driver);
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        if (TestData.getUser() == null) {
+            UserDTO user = new UserDTO("", "lastName", "test.21@gmail.com", "test1234");
+            TestData.setUser(user);}
 
     }
 
@@ -50,26 +54,13 @@ public class CustomerTest {
         ui.loginPage.loginWebsite(user);
         ui.homePage.clickToAddNewContactButton();
 
-        // Generate fake data
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(faker.date().birthday());
-        String email = faker.internet().emailAddress();
-        String phoneNumber = faker.numerify("###########");
-        String streetAddress1 = faker.address().streetAddress();
-        String streetAddress2 = faker.address().streetAddress();
-        String city = faker.address().city();
-        String stateOfProvince = faker.address().state();
-        String postalCode = faker.address().zipCode();
-        String country = faker.address().country();
+        CustomerDTO customer = new CustomerDTO(faker.name().firstName(), faker.name().lastName(),faker.internet().emailAddress(),  new SimpleDateFormat("yyyy-MM-dd").format(faker.date().birthday()), faker.numerify("###########"), faker.address().streetAddress(), faker.address().streetAddress(), faker.address().city(), faker.address().state(), faker.address().zipCode(), faker.address().country());
 
-
-        // Store data in TestData
-        ui.addContactPage.fillAddCustomerInformation(firstName, lastName, email, date, phoneNumber, streetAddress1, streetAddress2, city, stateOfProvince, postalCode, country);
+        ui.addContactPage.fillAddCustomerInformation(customer);
 
         Assert.assertTrue(ui.homePage.customerdatatablerow.isDisplayed());
         String tableText = ui.homePage.customerdatatablerow.getText();
-        Assert.assertTrue(tableText.contains(firstName));
+        Assert.assertTrue(tableText.contains(customer.getFirstName()));
         ui.homePage.clickToLogoutButton();
     }
     @AfterMethod
