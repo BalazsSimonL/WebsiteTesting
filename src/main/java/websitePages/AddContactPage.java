@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import websiteBase.CustomerDTO;
+import websiteBase.DTO;
 import websiteBase.WebsiteHelper;
 import java.time.Duration;
 
@@ -250,19 +250,19 @@ public class AddContactPage {
      * //@param country         String country
      **/
 
-    public void fillAddCustomerInformation(CustomerDTO customer) {
+    public void fillAddCustomerInformation(DTO createCustomerDTO) {
         WebsiteHelper.waitUntilWebElementIsClickable(addContactLogoutButton, wait, driver);
-        fillFirstNameField(customer.getFirstName());
-        fillLastNameField(customer.getLastName());
-        fillEmailField(customer.getEmail());
-        fillDateOfBirthField(customer.getDate());
-        fillPhoneNumberField(customer.getPhoneNumber());
-        fillStreetAddress1Field(customer.getStreetAddress1());
-        fillStreetAddress2Field(customer.getStreetAddress2());
-        fillCityField(customer.getCity());
-        fillStateOfProvinceField(customer.getStateOfProvince());
-        fillPostalCodeField(customer.getPostalCode());
-        fillCountryField(customer.getCountry());
+        fillFirstNameField(createCustomerDTO.getFirstName());
+        fillLastNameField(createCustomerDTO.getLastName());
+        fillEmailField(createCustomerDTO.getEmail());
+        fillDateOfBirthField(createCustomerDTO.getDate());
+        fillPhoneNumberField(createCustomerDTO.getPhoneNumber());
+        fillStreetAddress1Field(createCustomerDTO.getStreetAddress1());
+        fillStreetAddress2Field(createCustomerDTO.getStreetAddress2());
+        fillCityField(createCustomerDTO.getCity());
+        fillStateOfProvinceField(createCustomerDTO.getStateOfProvince());
+        fillPostalCodeField(createCustomerDTO.getPostalCode());
+        fillCountryField(createCustomerDTO.getCountry());
         clickOnSubmitButton();
     }
     public void stopAddCustomerInformation(){

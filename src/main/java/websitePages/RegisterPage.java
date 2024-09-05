@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import websiteBase.UserDTO;
+import websiteBase.DTO;
 import websiteBase.WebsiteHelper;
 
 import java.time.Duration;
@@ -137,7 +137,7 @@ public class RegisterPage {
      * //@param password  String password
      **/
 
-    public void createANewAccount(UserDTO user) {
+    public void createANewAccount(DTO user) {
         fillFirstNameField(user.getFirstName());
         fillLastNameField(user.getLastName());
         fillEmailField(user.getEmail());

@@ -9,8 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import websiteBase.TestData;
-import websiteBase.UserDTO;
+import websiteBase.DTO;
 import websiteBase.WebsiteHelper;
 import websiteBase.WebsiteUI;
 
@@ -21,7 +20,7 @@ public class LoginTest {
     public WebDriver driver;
     public WebsiteUI ui;
     public WebDriverWait wait;
-    public UserDTO testData;
+    public DTO testData;
 
     @BeforeMethod
     public void before() {
@@ -37,9 +36,8 @@ public class LoginTest {
 
     @Test
     public void loginWebsite() {
-        UserDTO user = TestData.getUser();
         ui.loginPage.openWebsite();
-        ui.loginPage.loginWebsite(user);
+        ui.loginPage.loginWebsite("test.21@gmail.com", "test1234");
         WebsiteHelper.waitUntilWebElementIsVisible(ui.homePage.customerdatatablerow, wait, driver);
         Assert.assertTrue(ui.homePage.logoutButton.isDisplayed());
         ui.homePage.clickToLogoutButton();

@@ -10,8 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import websiteBase.TestData;
-import websiteBase.UserDTO;
+import websiteBase.DTO;
 import websiteBase.WebsiteHelper;
 import websiteBase.WebsiteUI;
 
@@ -23,8 +22,6 @@ public class RegisterTest {
     public WebDriver driver;
     public WebsiteUI ui;
     public WebDriverWait wait;
-    public UserDTO testData;
-    Faker faker = new Faker();
 
     @BeforeMethod
     public void before() {
@@ -40,21 +37,20 @@ public class RegisterTest {
     }
 
     @Test
-    public void signUpOnWebsite() throws InterruptedException {
+    public void signUpOnWebsite() {
         ui.loginPage.openWebsite();
         ui.loginPage.clickToSignUpButton();
-
-        UserDTO user = new UserDTO(faker.name().firstName(), faker.name().lastName(), faker.internet().emailAddress(), faker.internet().password());
-
-        ui.registerPage.createANewAccount(user);
+        DTO customer = DTO.createCustomerDTO();
+        ui.registerPage.createANewAccount(customer);
         Assert.assertTrue(ui.homePage.logoutButton.isDisplayed());
         WebsiteHelper.waitUntilWebElementIsVisible(ui.homePage.addContactButton, wait, driver);
         ui.homePage.clickToLogoutButton();
         WebsiteHelper.waitUntilWebElementIsVisible(ui.loginPage.linkToAPIDocumentation, wait, driver);
-        ui.loginPage.loginWebsite(user);
+        ui.loginPage.loginWebsite("test.21@gmail.com" , "test1234");
+        System.out.println(customer.getEmail());
+        System.out.println(customer.getPassword());
         WebsiteHelper.waitUntilWebElementIsClickable(ui.homePage.logoutButton, wait, driver);
         Assert.assertTrue(ui.homePage.addContactButton.isDisplayed());
-        TestData.setUser(user);
     }
 
     @AfterMethod
