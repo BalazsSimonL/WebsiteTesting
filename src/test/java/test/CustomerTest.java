@@ -52,6 +52,7 @@ public class CustomerTest {
         String tableText = ui.homePage.customerdatatablerow.getText();
         Assert.assertTrue(tableText.contains(customer.getFirstName()));
         ui.homePage.clickToLogoutButton();
+        Assert.assertTrue(ui.loginPage.loginButton.isDisplayed());
     }
     @AfterMethod
     public void after(){
